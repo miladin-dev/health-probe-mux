@@ -18,17 +18,21 @@ func New() *Cron {
 	}
 }
 
-func (c *Cron) RunProbeCron() {
-	probes, err := parser.ParseYAML()
+func (c *Cron) RunProbeCron(args []string) error {
+	fileContent, err := os.ReadFile(args[0])
+	fmt.Printf("file: %v", string(fileContent))
 	if err != nil {
-		fmt.Printf("RunProbeCron: %v", err)
-		return
+		return fmt.Errorf("unable to read configuration file: %v", err)
+	}
+	probes, err := parser.ParseYAML(fileContent)
+	if err != nil {
+		return fmt.Errorf("unable to parse yaml: %v", err)
 	}
 	for _, probe := range probes {
 		go func(p *pb.Probe) {
 			status := c.prober.RunProbe(p)
 			<-status
-			// If any of probes finished, kill the binary
+			// If any of probes finish, kill the binary
 			os.Exit(1)
 		}(probe)
 	}

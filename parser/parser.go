@@ -25,8 +25,8 @@ type convertedProbe struct {
 	Probes []*probe.Probe `json:"probe,omitempty"`
 }
 
-func ParseYAML() ([]*probe.Probe, error) {
-	probeByte, err := yaml.YAMLToJSON([]byte(yamlExample))
+func ParseYAML(content []byte) ([]*probe.Probe, error) {
+	probeByte, err := yaml.YAMLToJSON(content)
 	if err != nil {
 		return nil, fmt.Errorf("error converting yaml to json: %w", err)
 	}
@@ -35,9 +35,6 @@ func ParseYAML() ([]*probe.Probe, error) {
 	err = json.Unmarshal(probeByte, probe)
 	if err != nil {
 		return nil, fmt.Errorf("unable to unmarshal to struct: %v", err)
-	}
-	for _, r := range probe.Probes {
-		fmt.Printf("%+v\n", r)
 	}
 	return probe.Probes, nil
 }

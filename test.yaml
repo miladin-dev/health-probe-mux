@@ -1,26 +1,9 @@
 probe:
-  exposeOnPort: 4000
-  - httpGet:
-      path: /healthz
-      port: 8080
-    initialDelaySeconds: 3
-    periodSeconds: 3
   - tcpSocket:
       port: 8080
-    initialDelaySeconds: 3
-    periodSeconds: 3
-
-
-probe:
-  - exposeOnPort: 4000
-    httpGet:
-      path: /healthz
-      port: 8080
-    initialDelaySeconds: 3
-    periodSeconds: 3
-  - exposeOnPort: 11
-    httpGet:
-      path: /healthz
-      port: 8080
-    initialDelaySeconds: 3
-    periodSeconds: 3
+    failureThreshold: 1
+    periodSeconds: 1   
+  - httpGet:
+      port: 8081
+    failureThreshold: 1
+    periodSeconds: 1
