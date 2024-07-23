@@ -12,8 +12,14 @@ build: deps
 
 .PHONY: run
 run: build
-	@./${BINARY_NAME}
+	@-./${BINARY_NAME} $(ARGS)
+	@$(MAKE) clean
 
 .PHONY: test
 test: build
-	go test -v ./...
+	@go test -v ./...
+	@$(MAKE) clean
+
+.PHONY: clean
+clean:
+	@rm -rf ./${BINARY_NAME}
