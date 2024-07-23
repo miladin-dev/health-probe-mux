@@ -6,7 +6,8 @@ Suppose you run an application that depends on an external service or database, 
 
 ## Roadmap:
 At the moment, only the CLI is available without the option to expose the results on a port. 
-The plan is to make the binary run inside a sidecar container and expose the results of the defined configuration on a specified port. The application container can then monitor the traffic on this port and act accordingly.
+The plan is to make the binary run inside a sidecar container and expose the results of the defined configuration on a specified port. The application container can then monitor the traffic on this port and act accordingly.\
+It's also planned to make this binary available as docker image and improve the build process by using Bazel.
 
 ## License
 This project was implemented as part of my master’s thesis on the topic "The Analysis of Containerization Principles and Internal Architecture of Kubernetes."\
