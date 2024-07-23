@@ -20,7 +20,6 @@ func New() *Cron {
 
 func (c *Cron) RunProbeCron(args []string) error {
 	fileContent, err := os.ReadFile(args[0])
-	fmt.Printf("file: %v", string(fileContent))
 	if err != nil {
 		return fmt.Errorf("unable to read configuration file: %v", err)
 	}
